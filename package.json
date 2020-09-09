@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "postcss-preset-env": "^6.7.0",
+    "standard": "^14.3.4",
     "tailwindcss": "^1.4.6"
   }
 }
