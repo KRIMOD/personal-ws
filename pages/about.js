@@ -1,6 +1,6 @@
 const WorkJournal = () => (
   <div>
-    <h1>WorkJournal</h1>
+    <h1>About</h1>
   </div>
 )
 export default WorkJournal

@@ -1,6 +1,6 @@
 const Projects = () => (
   <div>
-    <h1>projects</h1>
+    <h1>Dashboard</h1>
   </div>
 )
 
