@@ -1,6 +1,81 @@
-import React, { Children } from 'react'
+import React, { cloneElement, Children } from 'react'
 import NextLink from 'next/link'
+import NextHead from 'next/head'
 import { useRouter } from 'next/router'
+
+export const A = ({
+  children,
+  font = 'medium',
+  underline = true,
+  className = '',
+  href,
+  ...props
+}) => {
+  const border = underline
+    ? 'border-b border-blue-300 hover:border-blue-400 '
+    : ''
+  className += ` ${border} font-${font} text-blue-500`
+  const isInternalLink = href?.startsWith('/')
+
+  if (isInternalLink) {
+    return (
+      <NextLink href={href}>
+        <a {...props} className={className}>
+          {children}
+        </a>
+      </NextLink>
+    )
+  } else {
+    return (
+      <a href={href} className={className} {...props}>
+        {children}
+      </a>
+    )
+  }
+}
+
+export function Title ({ size = 'md', children }) {
+  const styles = {
+    sm:
+      'text-4xl font-semibold leading-tight text-gray-800 md:text-5xl lg:text-6xl lg:font-medium xl:text-7xl',
+    md:
+      'text-5xl font-semibold leading-tight text-gray-800 md:text-6xl lg:text-7xl lg:font-medium xl:text-8xl'
+  }
+  return <h1 className={styles[size]}>{children}</h1>
+}
+
+export function Lead ({ children }) {
+  return (
+    <p className='mt-6 text-lg text-gray-700 md:text-xl lg:text-2xl'>
+      {children}
+    </p>
+  )
+}
+
+export function Spacer ({ size = 'md' }) {
+  const styles = {
+    md: 'mt-8',
+    lg: 'mt-8 md:mt-10 xl:mt-16',
+    xl: 'mt-8 md:mt-16 xl:mt-24'
+  }
+
+  return <div className={styles[size]} />
+}
+
+export function Container ({ size, children }) {
+  const styles = {
+    small: 'max-w-sm mx-auto px-6 sm:max-w-lg md:max-w-xl lg:max-w-2xl', // Home
+    some: 'max-w-xl px-6 mx-auto lg:max-w-3xl lg:px-0', // Podcast, Blog index
+    measure: 'max-w-measure mx-auto', // Blog post
+    large: 'max-w-2xl px-6 mx-auto md:max-w-xl' // Projects
+  }
+
+  return <div className={styles[size]}>{children}</div>
+}
+
+export const Head = ({ children }) => {
+  return <NextHead>{children}</NextHead>
+}
 
 export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
   return (
@@ -35,5 +110,25 @@ export const Link = ({ children, activeClassName, ...props }) => {
         className: className || null
       })}
     </NextLink>
+  )
+}
+
+export function Blog ({ article, type, description = 'a random description' }) {
+  return (
+    <div className='pt-3 text-black'>
+      <div className='flex items-center justify-between'>
+        <h2 className='text-xl font-semibold text-gray-800'><Link href={`${type}/${article.slug}` || '#'}><a>{article.title}</a></Link></h2>
+        <p className='text-xs font-normal text-gray-700'>{article.date}</p>
+      </div>
+      <p className='text-sm text-gray-700 '>{article.description}</p>
+    </div>
+  )
+}
+
+export function Figure ({ children }) {
+  return (
+    <div className='pt-1 text-sm text-gray-600'>
+      {children}
+    </div>
   )
 }

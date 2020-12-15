@@ -2,7 +2,7 @@ import { GitHub, Twitter, Linkedin } from '../components/logos'
 import { Img } from '../components/ui'
 
 const Index = () => (
-  <div className='font-light max-w-xl lg:max-w-3xl mx-auto '>
+  <div className='font-light max-w-6xl lg:max-w-3xl mx-auto '>
 
     {/* Title */}
     <h1 className='text-5xl font-medium mt-8'>
@@ -11,8 +11,8 @@ const Index = () => (
 
     {/* Description */}
     <p className='mt-3'>
-    I am TEMAM Mamar Abdelkrim (KRIMO), and I am a student in Information Systems and Technology at Ecole Nationale Supérieure d'informatique.<br />
-    Je m'appelle TEMAM Mamar Abdelkrim (KRIMO), et je suis étudiant en Système d'information et technologie à l'école nationale supérieur d'informatique (ESI).<br />
+      I am TEMAM Mamar Abdelkrim (KRIMO), and I am a student in Information Systems and Technology at Ecole Nationale Supérieure d'informatique.
+      {/* Je m'appelle TEMAM Mamar Abdelkrim (KRIMO), et je suis étudiant en Système d'information et technologie à l'école nationale supérieur d'informatique (ESI).<br /> */}
     </p>
 
     {/* Links container */}

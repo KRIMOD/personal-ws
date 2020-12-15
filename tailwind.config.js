@@ -1,7 +1,11 @@
 module.exports = {
-  purge: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        deepLilac: '#9B59B6'
+      }
+    }
+
   },
   variants: {},
   plugins: []
