@@ -29,7 +29,7 @@ export default function Layout ({ children, frontMatter }) {
 
           <hr className='mt-10' />
 
-          <div className='mt-10 pb-10'>
+          <div className='pb-10 mt-10'>
             {/* <div>
               <NextLink href='/'>
                 <a className='block w-16 h-16 mx-auto overflow-hidden rounded-full'>

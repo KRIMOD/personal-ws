@@ -1,7 +1,14 @@
-const Projects = () => (
-  <div>
-    <h1>Dashboard</h1>
-  </div>
-)
+import TopTracks from '@/components/TopTracks'
+const Dashboard = () => {
+  return (
+    <div>
+      <h1>Dashboard</h1>
 
-export default Projects
+      <div>
+        <TopTracks />
+      </div>
+    </div>
+  )
+}
+
+export default Dashboard
