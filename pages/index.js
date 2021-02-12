@@ -1,16 +1,17 @@
 import { GitHub, Twitter, Linkedin } from '@/components/logos'
+import TopTracks from '@/components/TopTracks'
 import { Img, Title } from '@/components/ui'
 
 const Index = () => (
   <div className='max-w-6xl mx-auto font-light lg:max-w-3xl '>
 
     {/* Title */}
-    <Title>
+    <Title size='sm'>
       Bonjour !
     </Title>
 
     {/* Description */}
-    <p className='mt-3'>
+    <p className='my-4 text-gray-600 dark:text-gray-400'>
       I am TEMAM Mamar Abdelkrim (KRIMO), and I am a student in Information Systems and Technology at Ecole Nationale Supérieure d'informatique.
       {/* Je m'appelle TEMAM Mamar Abdelkrim (KRIMO), et je suis étudiant en Système d'information et technologie à l'école nationale supérieur d'informatique (ESI).<br /> */}
     </p>
@@ -32,16 +33,27 @@ const Index = () => (
     </div>
 
     {/* Portrait of ana */}
-    <div className='hidden mt-10 sm:block'>
+    <div className='hidden my-6 sm:block'>
       <HomepageImage className='rounded-lg' />
     </div>
 
     {/* Projects */}
     <div>
-      <h2 className='mt-4 text-3xl font-medium'>Projects</h2>
+      <h2 className='my-4 text-3xl font-medium'>Projects</h2>
       <ProjectCard title='Preventivo' to='' icon=''>Mise en place de la maintenance préventive d'un parc automobile pour une entreprise au trois niveau hiérarchique à travers 3 applications distinctes pour chaque niveau.</ProjectCard>
       <ProjectCard title='Ndif' to='' icon=''>Refonte de l'application mobile Ndif de l'Agence Nationale des déchets (AND) UX et UI + le rajout de nouvelles fonctionnalités.</ProjectCard>
       <ProjectCard title='Project 1' to='' icon=''>okok</ProjectCard>
+    </div>
+
+    {/* Spotify top tracks */}
+    <div>
+      <h2 className='mt-4 text-3xl font-medium'>
+        Top Tracks
+      </h2>
+      <p className='mb-4 text-gray-600 dark:text-gray-400'>
+        J'assume pas tout ce que j'écoute ya kho, sans smir
+      </p>
+      <TopTracks />
     </div>
 
   </div>
