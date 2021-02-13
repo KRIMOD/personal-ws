@@ -1,7 +1,6 @@
 import { GitHub, Twitter, Linkedin } from '@/components/logos'
 import TopTracks from '@/components/TopTracks'
 import { Img, Title } from '@/components/ui'
-import Image from 'next/image'
 
 const Index = () => (
   <div className='max-w-6xl mx-auto font-light lg:max-w-3xl '>
@@ -35,12 +34,7 @@ const Index = () => (
 
     {/* Portrait of ana */}
     <div className='hidden my-6 sm:block'>
-      {/* <HomepageImage className='rounded-lg' /> */}
-      <img
-        src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/e82f4bea-f5d8-4c30-82e8-ab9ae7651a88/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210212%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210212T235515Z&X-Amz-Expires=86400&X-Amz-Signature=ca2f580886002d25b648ba2c8e96af4a5ed90e7d868d3f780cb60065096dad77&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22'
-        // aspectRatio={1080 / 1600}
-        className='mx-auto'
-      />
+      <HomepageImage className='rounded-lg' />
     </div>
 
     {/* Projects */}
