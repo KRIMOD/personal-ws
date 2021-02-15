@@ -1,73 +1,89 @@
 import { GitHub, Twitter, Linkedin } from '@/components/logos'
 import TopTracks from '@/components/TopTracks'
-import { Img, Title } from '@/components/ui'
+import { Img, Title, Lead, Container, Spacer } from '@/components/ui'
+import NextLink from 'next/link'
 
 const Index = () => (
   <div className='max-w-6xl mx-auto font-light lg:max-w-3xl '>
+    <Container size='some'>
 
-    {/* Title */}
-    <Title size='sm'>
-      Bonjour !
-    </Title>
+      <Spacer size='md' />
 
-    {/* Description */}
-    <p className='my-4 text-gray-600 dark:text-gray-400'>
-      I am TEMAM Mamar Abdelkrim (KRIMO), and I am a student in Information Systems and Technology at Ecole Nationale Supérieure d'informatique.
-      {/* Je m'appelle TEMAM Mamar Abdelkrim (KRIMO), et je suis étudiant en Système d'information et technologie à l'école nationale supérieur d'informatique (ESI).<br /> */}
-    </p>
+      {/* Title */}
+      <Title size='md'>
+        Bonjour !
+      </Title>
 
-    {/* Links container */}
-    <div className='flex mt-4 text-xs font-medium text-gray-700 lg:text-base'>
-      <a href='https://github.com/krimod' className='flex items-center mr-4 hover:text-gray-800'>
-        <GitHub className='h-4 mr-2' />
-        <span>GitHub</span>
-      </a>
-      <a href='https://twitter.com/KrimoTemam' className='flex items-center mr-4'>
-        <Twitter className='h-4 mr-2' />
-        <span>Twitter</span>
-      </a>
-      <a href='https://dz.linkedin.com/in/mamar-abdelkrim-temam' className='flex items-center mr-4'>
-        <Linkedin className='h-4 mr-2' />
-        <span>Linkedin</span>
-      </a>
+      <Spacer size='md' />
+
+      {/* Description */}
+      <Lead>
+        I am TEMAM Mamar Abdelkrim (KRIMO), and I am a student in Information Systems and Technology at Ecole Nationale Supérieure d'informatique.
+        {/* Je m'appelle TEMAM Mamar Abdelkrim (KRIMO), et je suis étudiant en Système d'information et technologie à l'école nationale supérieur d'informatique (ESI).<br /> */}
+      </Lead>
+
+    </Container>
+
+    {/* Portrait */}
+    <div className='mt-6 sm:hidden'>
+      <HomepageImage />
     </div>
+    <Container size='some'>
 
-    {/* Portrait of ana */}
-    <div className='hidden my-6 sm:block'>
-      <HomepageImage className='rounded-lg' />
-    </div>
+      {/* Links container */}
+      <div className='flex my-6 text-xs font-medium text-gray-700 lg:text-base'>
+        <a href='https://github.com/krimod' className='flex items-center mr-4 hover:text-gray-800'>
+          <GitHub className='h-4 mr-2' />
+          <span>GitHub</span>
+        </a>
+        <a href='https://twitter.com/KrimoTemam' className='flex items-center mr-4'>
+          <Twitter className='h-4 mr-2' />
+          <span>Twitter</span>
+        </a>
+        <a href='https://dz.linkedin.com/in/mamar-abdelkrim-temam' className='flex items-center mr-4'>
+          <Linkedin className='h-4 mr-2' />
+          <span>Linkedin</span>
+        </a>
+      </div>
 
-    {/* Projects */}
-    <div>
-      <h2 className='my-4 text-3xl font-medium'>Projects</h2>
-      <ProjectCard title='Preventivo' to='' icon=''>
-        Mise en place de la maintenance préventive d'un parc automobile pour une entreprise au trois niveau hiérarchique à travers 3 applications distinctes pour chaque niveau.
-      </ProjectCard>
-      <ProjectCard title='Ndif' to='' icon=''>
-        Refonte de l'application mobile Ndif de l'Agence Nationale des déchets (AND) UX et UI + le rajout de nouvelles fonctionnalités.
-      </ProjectCard>
-      <ProjectCard title='Project 1' to='' icon=''>
-        okok
-      </ProjectCard>
-    </div>
+      {/* Portrait of ana */}
+      <div className='hidden my-6 sm:block'>
+        <HomepageImage className='rounded-lg' />
+      </div>
 
-    {/* Spotify top tracks */}
-    <div>
-      <h2 className='mt-4 text-3xl font-medium'>
-        Top Tracks
-      </h2>
-      <p className='mb-4 text-gray-600 dark:text-gray-400'>
-        J'assume pas tout ce que j'écoute ya kho, sans smir
-      </p>
-      <TopTracks />
-    </div>
+      {/* Projects */}
+      <Section>
+        <SectionTitle>Projects</SectionTitle>
+        <SectionBody>
+          <ProjectCard title='Preventivo' to='' icon=''>
+            Mise en place de la maintenance préventive d'un parc automobile pour une entreprise au trois niveau hiérarchique à travers 3 applications distinctes pour chaque niveau.
+          </ProjectCard>
+          <ProjectCard title='Ndif' to='' icon=''>
+            Refonte de l'application mobile Ndif de l'Agence Nationale des déchets (AND) UX et UI + le rajout de nouvelles fonctionnalités.
+          </ProjectCard>
+          <ProjectCard title='Project 1' to='' icon=''>
+            okok
+          </ProjectCard>
+        </SectionBody>
+      </Section>
 
+      {/* Spotify top tracks */}
+      <Section>
+        <SectionTitle>Top Tracks</SectionTitle>
+        <SectionBody>
+          <Lead>
+            J'assume pas tout ce que j'écoute ya kho, sans smir
+          </Lead>
+          <TopTracks />
+        </SectionBody>
+      </Section>
+    </Container>
   </div>
 )
 
 function ProjectCard ({ title, to, icon, children }) {
   return (
-    <div className='flex items-center px-2 py-3 mt-2 border-2 border-gray-600 rounded-sm'>
+    <div className='flex items-center px-2 py-3 mt-2 border-2 border-gray-200 rounded'>
       <icon className='mx-2'>icon</icon>
       <div>
         <h3 className='text-lg font-normal'>{title}</h3>
@@ -84,6 +100,55 @@ function HomepageImage ({ className }) {
       // aspectRatio={1616 / 1080}
       className={`${className} h-full w-full object-cover object-top`}
     />
+  )
+}
+
+function Section ({ children }) {
+  return <section className='mt-8 md:mt-14 lg:mt-18'>{children}</section>
+}
+
+function SectionTitle ({ link, children }) {
+  const T = ({ children }) => (
+    <h2 className='text-2xl font-semibold text-gray-900 md:text-2xl lg:text-2-5xl'>
+      {children}
+    </h2>
+  )
+
+  if (link) {
+    return (
+      <NextLink href={link}>
+        <a className='inline-block'>
+          <T>
+            {children}
+            <Chevron className='w-4 h-4 ml-1 md:w-5 md:h-5 lg:w-6 lg:h-6' />
+          </T>
+        </a>
+      </NextLink>
+    )
+  } else {
+    return <T>{children}</T>
+  }
+}
+
+function SectionBody ({ children }) {
+  return <div className='mt-4 md:mt-4 lg:mt-6'>{children}</div>
+}
+
+function Chevron (props) {
+  return (
+    <svg
+      className={`inline fill-current ${props.className}`}
+      viewBox='0 0 20 20'
+    >
+      <g id='Page-1' stroke='none' strokeWidth='1'>
+        <g id='icon-shape'>
+          <polygon
+            id='Combined-Shape'
+            points='12.9497475 10.7071068 13.6568542 10 8 4.34314575 6.58578644 5.75735931 10.8284271 10 6.58578644 14.2426407 8 15.6568542 12.9497475 10.7071068'
+          />
+        </g>
+      </g>
+    </svg>
   )
 }
 
