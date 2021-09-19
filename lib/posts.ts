@@ -5,11 +5,11 @@ import matter from 'gray-matter'
 
 const postsDirectory = join(process.cwd(), 'pages', 'blog')
 
-export function getPostSlugs () {
+export function getPostSlugs() {
   return fs.readdirSync(postsDirectory).filter((slug) => !slug.startsWith('.'))
 }
 
-export function getPostBySlug (slug, fields = []) {
+export function getPostBySlug(slug, fields = []) {
   const pathToPost = join(postsDirectory, slug)
   const files = fs.readdirSync(pathToPost)
   const indexFile = files.find(
@@ -25,7 +25,7 @@ export function getPostBySlug (slug, fields = []) {
   return data
 }
 
-export function getAllPosts (fields = []) {
+export function getAllPosts(fields = []) {
   const slugs = getPostSlugs()
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields))
