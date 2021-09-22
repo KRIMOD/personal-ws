@@ -34,28 +34,23 @@ export const A = ({
   }
 }
 
-export function Title ({ size = 'md', children }) {
+export function Title({ size = 'md', children }) {
   const styles = {
-    xs:
-      'text-2xl font-semibold leading-tight text-gray-800 md:text-3xl lg:text-4xl lg:font-medium xl:text-5xl',
-    sm:
-      'text-3xl font-semibold leading-tight text-gray-800 md:text-4xl lg:text-5xl lg:font-medium xl:text-6xl',
-    md:
-      'text-4xl font-semibold leading-tight text-gray-800 md:text-5xl lg:text-6xl lg:font-medium xl:text-7xl'
+    xs: 'text-2xl font-semibold leading-tight text-gray-800 md:text-3xl lg:text-4xl lg:font-medium xl:text-5xl',
+    sm: 'text-3xl font-semibold leading-tight text-gray-800 md:text-4xl lg:text-5xl lg:font-medium xl:text-6xl',
+    md: 'text-4xl font-semibold leading-tight text-gray-800 md:text-5xl lg:text-6xl lg:font-medium xl:text-7xl'
   }
   return <h1 className={styles[size]}>{children}</h1>
 }
 
-export function Lead ({ children }) {
+export function Lead({ children }) {
   return (
     // <p className='mt-6 text-lg text-gray-700 md:text-xl lg:text-2xl'>
-    <p className='my-4 text-gray-600 dark:text-gray-400'>
-      {children}
-    </p>
+    <p className="my-4 text-gray-600 dark:text-gray-400">{children}</p>
   )
 }
 
-export function Spacer ({ size = 'md' }) {
+export function Spacer({ size = 'md' }) {
   const styles = {
     md: 'mt-8',
     lg: 'mt-8 md:mt-10 xl:mt-16',
@@ -65,7 +60,7 @@ export function Spacer ({ size = 'md' }) {
   return <div className={styles[size]} />
 }
 
-export function Container ({ size, children }) {
+export function Container({ size, children }) {
   const styles = {
     small: 'max-w-sm mx-auto px-6 sm:max-w-lg md:max-w-xl lg:max-w-2xl', // Home
     some: 'max-w-xl px-6 mx-auto lg:max-w-3xl lg:px-0', // Podcast, Blog index
@@ -83,10 +78,10 @@ export const Head = ({ children }) => {
 export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
   return (
     <div
-      className='relative'
+      className="relative"
       style={{ paddingBottom: `${(1 / aspectRatio) * 100}%` }}
     >
-      <div className='absolute inset-0'>
+      <div className="absolute inset-0">
         <img src={src} className={`${className} w-full h-full object-cover`} />
       </div>
     </div>
@@ -103,9 +98,9 @@ export const Link = ({ children, activeClassName, ...props }) => {
   // pages/about.js will be matched via props.href
   // pages/[slug].js will be matched via props.as
   const className =
-      asPath === props.href || asPath === props.as
-        ? `${childClassName} ${activeClassName}`.trim()
-        : childClassName
+    asPath === props.href || asPath === props.as
+      ? `${childClassName} ${activeClassName}`.trim()
+      : childClassName
 
   return (
     <NextLink {...props}>
@@ -116,22 +111,22 @@ export const Link = ({ children, activeClassName, ...props }) => {
   )
 }
 
-export function Blog ({ article, type, description = 'a random description' }) {
+export function Blog({ article, type, description = 'a random description' }) {
   return (
-    <div className='pt-3 text-black'>
-      <div className='flex items-center justify-between'>
-        <h2 className='text-xl font-semibold text-gray-800'><Link href={`${type}/${article.slug}` || '#'}><a>{article.title}</a></Link></h2>
-        <p className='text-xs font-normal text-gray-700'>{article.date}</p>
+    <div className="pt-3 text-black">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold text-gray-800">
+          <Link href={`${type}/${article.slug}` || '#'}>
+            <a>{article.title}</a>
+          </Link>
+        </h2>
+        <p className="text-xs font-normal text-gray-700">{article.date}</p>
       </div>
-      <p className='text-sm text-gray-700 '>{article.description}</p>
+      <p className="text-sm text-gray-700 ">{article.description}</p>
     </div>
   )
 }
 
-export function Figure ({ children }) {
-  return (
-    <div className='pt-1 text-sm text-gray-600'>
-      {children}
-    </div>
-  )
+export function Figure({ children }) {
+  return <div className="pt-1 text-sm text-gray-600">{children}</div>
 }

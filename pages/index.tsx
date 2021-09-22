@@ -99,12 +99,12 @@ function ProjectCard({ title, to, icon, children }) {
   )
 }
 
-function HomepageImage({ className }) {
+function HomepageImage() {
   return (
     <Img
-      src="/images/portrait-krimo.jpg"
+      src="/static/images/portrait-krimo.jpg"
       // aspectRatio={1616 / 1080}
-      className={`${className} h-full w-full object-cover object-top`}
+      className={`h-full w-full object-cover object-top`}
     />
   )
 }
