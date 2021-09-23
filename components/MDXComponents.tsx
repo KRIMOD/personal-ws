@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Figure } from './ui'
 
 const CustomLink = (props) => {
   const href = props.href
@@ -18,7 +19,8 @@ const CustomLink = (props) => {
 
 const MDXComponents = {
   Image,
-  a: CustomLink
+  a: CustomLink,
+  Figure
 }
 
 export default MDXComponents
