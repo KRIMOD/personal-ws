@@ -4,7 +4,7 @@ import { Img, Title, Lead, Container, Spacer } from 'components/ui'
 import NextLink from 'next/link'
 
 const Index = () => (
-  <div className="max-w-6xl mx-auto font-light lg:max-w-3xl ">
+  <div className="mx-auto max-w-6xl font-light lg:max-w-3xl">
     <Container size="some">
       <Spacer size="md" />
 
@@ -32,28 +32,28 @@ const Index = () => (
           href="https://github.com/krimod"
           className="flex items-center mr-4 hover:text-gray-800"
         >
-          <GitHub className="h-4 mr-2" />
+          <GitHub className="mr-2 h-4" />
           <span>GitHub</span>
         </a>
         <a
           href="https://twitter.com/KrimoTemam"
           className="flex items-center mr-4"
         >
-          <Twitter className="h-4 mr-2" />
+          <Twitter className="mr-2 h-4" />
           <span>Twitter</span>
         </a>
         <a
           href="https://dz.linkedin.com/in/mamar-abdelkrim-temam"
           className="flex items-center mr-4"
         >
-          <Linkedin className="h-4 mr-2" />
+          <Linkedin className="mr-2 h-4" />
           <span>Linkedin</span>
         </a>
       </div>
 
       {/* Portrait of ana */}
       <div className="hidden my-6 sm:block">
-        <HomepageImage className="rounded-lg" />
+        <HomepageImage />
       </div>
 
       {/* Projects */}
@@ -89,8 +89,8 @@ const Index = () => (
 
 function ProjectCard({ title, to, icon, children }) {
   return (
-    <div className="flex items-center px-2 py-3 mt-2 border-2 border-gray-200 rounded">
-      <icon className="mx-2">icon</icon>
+    <div className="flex items-center px-2 py-3 mt-2 rounded border-2 border-gray-200">
+      {/* <ico className="mx-2">icon</i> */}
       <div>
         <h3 className="text-lg font-normal">{title}</h3>
         <p>{children}</p>
@@ -104,7 +104,7 @@ function HomepageImage() {
     <Img
       src="/static/images/portrait-krimo.jpg"
       // aspectRatio={1616 / 1080}
-      className={`h-full w-full object-cover object-top`}
+      className={`object-cover object-top w-full h-full`}
     />
   )
 }
@@ -113,7 +113,12 @@ function Section({ children }) {
   return <section className="mt-8 md:mt-14 lg:mt-18">{children}</section>
 }
 
-function SectionTitle({ link, children }) {
+interface ISection {
+  link?: string
+  children: React.ReactNode
+}
+
+function SectionTitle({ link, children }: ISection) {
   const T = ({ children }) => (
     <h2 className="text-2xl font-semibold text-gray-900 md:text-2xl lg:text-2-5xl">
       {children}
@@ -126,7 +131,7 @@ function SectionTitle({ link, children }) {
         <a className="inline-block">
           <T>
             {children}
-            <Chevron className="w-4 h-4 ml-1 md:w-5 md:h-5 lg:w-6 lg:h-6" />
+            <Chevron className="ml-1 w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" />
           </T>
         </a>
       </NextLink>
