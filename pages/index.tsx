@@ -9,15 +9,15 @@ const Index = () => (
       <Spacer size="md" />
 
       {/* Title */}
-      <Title size="md">Bonjour !</Title>
+      <Title size="md">Hey, Im Krimo Temam</Title>
 
       <Spacer size="md" />
 
       {/* Description */}
       <Lead>
-        I am TEMAM Mamar Abdelkrim (KRIMO), and I am a student in Information
-        Systems and Technology at Ecole Nationale Supérieure d'informatique.
-        {/* Je m'appelle TEMAM Mamar Abdelkrim (KRIMO), et je suis étudiant en Système d'information et technologie à l'école nationale supérieur d'informatique (ESI).<br /> */}
+        I'm a software developer freshly graduated from Ecole Nationale
+        Supérieure d'informatique as a engineer in Information Systems and
+        Technology.
       </Lead>
     </Container>
 

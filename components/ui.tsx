@@ -1,4 +1,4 @@
-import React, { cloneElement, Children } from 'react'
+import React, { Children } from 'react'
 import NextLink from 'next/link'
 import NextHead from 'next/head'
 import { useRouter } from 'next/router'
@@ -82,7 +82,7 @@ export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
       style={{ paddingBottom: `${(1 / aspectRatio) * 100}%` }}
     >
       <div className="absolute inset-0">
-        <img src={src} className={`${className} w-full h-full object-cover`} />
+        <img src={src} className={`object-cover w-full h-full ${className}`} />
       </div>
     </div>
   )
@@ -114,7 +114,7 @@ export const Link = ({ children, activeClassName, ...props }) => {
 export function Blog({ article, type, description = 'a random description' }) {
   return (
     <div className="pt-3 text-black">
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold text-gray-800">
           <Link href={`${type}/${article.slug}` || '#'}>
             <a>{article.title}</a>
@@ -122,7 +122,7 @@ export function Blog({ article, type, description = 'a random description' }) {
         </h2>
         <p className="text-xs font-normal text-gray-700">{article.date}</p>
       </div>
-      <p className="text-sm text-gray-700 ">{article.description}</p>
+      <p className="text-sm text-gray-700">{article.description}</p>
     </div>
   )
 }
