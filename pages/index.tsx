@@ -2,6 +2,7 @@ import { GitHub, Twitter, Linkedin } from 'components/logos'
 import TopTracks from 'components/TopTracks'
 import { Img, Title, Lead, Container, Spacer } from 'components/ui'
 import NextLink from 'next/link'
+import React from 'react'
 
 const Index = () => (
   <div className="mx-auto max-w-6xl font-light lg:max-w-3xl">
@@ -60,18 +61,16 @@ const Index = () => (
       <Section>
         <SectionTitle>Projects</SectionTitle>
         <SectionBody>
-          <ProjectCard title="Preventivo" to="" icon="">
+          <ProjectCard title="Preventivo">
             Mise en place de la maintenance préventive d'un parc automobile pour
             une entreprise au trois niveau hiérarchique à travers 3 applications
             distinctes pour chaque niveau.
           </ProjectCard>
-          <ProjectCard title="Ndif" to="" icon="">
+          <ProjectCard title="Ndif">
             Refonte de l'application mobile Ndif de l'Agence Nationale des
             déchets (AND) UX et UI + le rajout de nouvelles fonctionnalités.
           </ProjectCard>
-          <ProjectCard title="Project 1" to="" icon="">
-            okok
-          </ProjectCard>
+          <ProjectCard title="Project 1">okok</ProjectCard>
         </SectionBody>
       </Section>
 
@@ -87,7 +86,7 @@ const Index = () => (
   </div>
 )
 
-function ProjectCard({ title, to, icon, children }) {
+function ProjectCard({ title, children }) {
   return (
     <div className="flex items-center px-2 py-3 mt-2 rounded border-2 border-gray-200">
       {/* <ico className="mx-2">icon</i> */}

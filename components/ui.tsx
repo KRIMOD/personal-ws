@@ -82,7 +82,11 @@ export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
       style={{ paddingBottom: `${(1 / aspectRatio) * 100}%` }}
     >
       <div className="absolute inset-0">
-        <img src={src} className={`object-cover w-full h-full ${className}`} />
+        <img
+          src={src}
+          alt="alt"
+          className={`object-cover w-full h-full ${className}`}
+        />
       </div>
     </div>
   )
@@ -111,7 +115,7 @@ export const Link = ({ children, activeClassName, ...props }) => {
   )
 }
 
-export function Blog({ article, type, description = 'a random description' }) {
+export function Blog({ article, type }) {
   return (
     <div className="pt-3 text-black">
       <div className="flex justify-between items-center">

@@ -1,6 +1,6 @@
 import { getNowPlaying } from 'lib/spotify'
 
-export default async (_, res) => {
+const NowPlaying = async (_, res) => {
   const response = await getNowPlaying()
 
   if (response.status === 204 || response.status > 400) {
@@ -30,3 +30,5 @@ export default async (_, res) => {
     title
   })
 }
+
+export default NowPlaying
