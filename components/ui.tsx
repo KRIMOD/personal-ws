@@ -1,7 +1,26 @@
-import React, { Children } from 'react'
+import React from 'react'
 import NextLink from 'next/link'
 import NextHead from 'next/head'
-import { useRouter } from 'next/router'
+import Image from 'next/image'
+import classNames from 'classnames'
+
+// TODO : What do i need for UI utility
+// [] - Button
+// [] - Form elements
+//   [] - Checkbox
+//   [] - Input
+//   [] - Radio
+//   [] - Range
+//   [] - Select
+//   [] - TextArea
+//   [] - Toggle
+// [] - Table
+//   [] -
+// [] - Divider
+// [] - Link
+// [] -
+// [] -
+// [] -
 
 export const A = ({
   children,
@@ -76,53 +95,50 @@ export const Head = ({ children }) => {
 }
 
 export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
+  const cls = classNames(className, 'object-cover w-full h-full')
   return (
     <div
       className="relative"
       style={{ paddingBottom: `${(1 / aspectRatio) * 100}%` }}
     >
       <div className="absolute inset-0">
-        <img
-          src={src}
-          alt="alt"
-          className={`object-cover w-full h-full ${className}`}
-        />
+        <Image src={src} alt="alt" className={cls} />
       </div>
     </div>
   )
 }
 
 // Copied from https://github.com/vercel/next.js/blob/canary/examples/active-class-name/components/ActiveLink.js
-export const Link = ({ children, activeClassName, ...props }) => {
-  const { asPath } = useRouter()
-  const child = Children.only(children)
-  const childClassName = child.props.className || ''
+// export const Link = ({ children, activeClassName, ...props }) => {
+//   const { asPath } = useRouter()
+//   const child = Children.only(children)
+//   const childClassName = child.props.className || ''
 
-  // pages/index.js will be matched via props.href
-  // pages/about.js will be matched via props.href
-  // pages/[slug].js will be matched via props.as
-  const className =
-    asPath === props.href || asPath === props.as
-      ? `${childClassName} ${activeClassName}`.trim()
-      : childClassName
+//   // pages/index.js will be matched via props.href
+//   // pages/about.js will be matched via props.href
+//   // pages/[slug].js will be matched via props.as
+//   const className =
+//     asPath === props.href || asPath === props.as
+//       ? `${childClassName} ${activeClassName}`.trim()
+//       : childClassName
 
-  return (
-    <NextLink {...props}>
-      {React.cloneElement(child, {
-        className: className || null
-      })}
-    </NextLink>
-  )
-}
+//   return (
+//     <NextLink {...props}>
+//       {React.cloneElement(child, {
+//         className: className || null
+//       })}
+//     </NextLink>
+//   )
+// }
 
 export function Blog({ article, type }) {
   return (
     <div className="pt-3 text-black">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold text-gray-800">
-          <Link href={`${type}/${article.slug}` || '#'}>
+          <NextLink href={`${type}/${article.slug}` || '#'}>
             <a>{article.title}</a>
-          </Link>
+          </NextLink>
         </h2>
         <p className="text-xs font-normal text-gray-700">{article.date}</p>
       </div>
