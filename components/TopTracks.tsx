@@ -1,10 +1,11 @@
 import useSWR from 'swr'
 
 import fetcher from 'lib/fetcher'
+import { ITopTracks } from 'lib/types'
 import Track from 'components/Track'
 
 export default function TopTracks() {
-  const { data } = useSWR('/api/top-tracks', fetcher)
+  const { data } = useSWR<ITopTracks>('/api/top-tracks', fetcher)
 
   if (!data) {
     return null
