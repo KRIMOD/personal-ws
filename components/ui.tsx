@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Children } from 'react'
 import NextLink from 'next/link'
 import NextHead from 'next/head'
 import Image from 'next/image'
 import classNames from 'classnames'
+import { useRouter } from 'next/dist/client/router'
 
 // TODO : What do i need for UI utility
 // [] - Button
@@ -109,27 +110,27 @@ export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
 }
 
 // Copied from https://github.com/vercel/next.js/blob/canary/examples/active-class-name/components/ActiveLink.js
-// export const Link = ({ children, activeClassName, ...props }) => {
-//   const { asPath } = useRouter()
-//   const child = Children.only(children)
-//   const childClassName = child.props.className || ''
+export const Link = ({ children, activeClassName, href, ...props }) => {
+  const { asPath } = useRouter()
+  const child = Children.only(children)
+  const childClassName = child.props.className || ''
 
-//   // pages/index.js will be matched via props.href
-//   // pages/about.js will be matched via props.href
-//   // pages/[slug].js will be matched via props.as
-//   const className =
-//     asPath === props.href || asPath === props.as
-//       ? `${childClassName} ${activeClassName}`.trim()
-//       : childClassName
+  // pages/index.js will be matched via props.href
+  // pages/about.js will be matched via props.href
+  // pages/[slug].js will be matched via props.as
+  const className =
+    asPath === props.href || asPath === props.as
+      ? `${childClassName} ${activeClassName}`.trim()
+      : childClassName
 
-//   return (
-//     <NextLink {...props}>
-//       {React.cloneElement(child, {
-//         className: className || null
-//       })}
-//     </NextLink>
-//   )
-// }
+  return (
+    <NextLink href={href} {...props}>
+      {React.cloneElement(child, {
+        className: className || null
+      })}
+    </NextLink>
+  )
+}
 
 export function Blog({ article, type }) {
   return (
