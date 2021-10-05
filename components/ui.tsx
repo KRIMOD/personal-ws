@@ -103,7 +103,7 @@ export const Img = ({ src, aspectRatio = 16 / 9, className = '' }) => {
       style={{ paddingBottom: `${(1 / aspectRatio) * 100}%` }}
     >
       <div className="absolute inset-0">
-        <Image src={src} alt="alt" className={cls} />
+        <Image src={src} alt="alt" className={cls} layout="fill" />
       </div>
     </div>
   )
