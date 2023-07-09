@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import me from '@/app/avatar.jpg';
 
 export const name = 'Mamar Abdelkrim TEMAM';
