@@ -9,7 +9,6 @@ const navItems = [
   { path: '/', name: 'home' },
   { path: '/about', name: 'about' },
   { path: '/blog', name: 'blog' },
-  { path: '/mounir', name: 'palette' },
 ] as const;
 
 function Logo() {

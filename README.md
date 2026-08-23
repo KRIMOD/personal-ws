@@ -1,6 +1,6 @@
 # Mamar Temam's Website
 
-A personal website and MDX blog built with Next.js, React, TypeScript, and Tailwind CSS. It includes a small browser-based palette card generator at `/mounir`.
+A personal website and MDX blog built with Next.js, React, TypeScript, and Tailwind CSS.
 
 ## Requirements
 

@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import { stat } from 'node:fs/promises';
 
 const routes = [
   '/',
@@ -7,7 +6,6 @@ const routes = [
   '/blog',
   '/blog/la-theorie-du-chaos',
   '/blog/les-traditions-ya-wlido',
-  '/mounir',
 ];
 
 for (const route of routes) {
@@ -49,30 +47,6 @@ test('articles expose French semantics without failed view requests', async ({
     '2018-08-18'
   );
   expect(failedViewRequests).toEqual([]);
-});
-
-test('palette studio reflows and labels its controls', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 800 });
-  await page.goto('/mounir');
-
-  await expect(page.getByLabel('Palette')).toBeVisible();
-  await expect(page.getByLabel('Volume')).toBeVisible();
-  await expect(page.getByLabel('Background image')).toBeVisible();
-
-  const dimensions = await page.evaluate(() => ({
-    documentWidth: document.documentElement.scrollWidth,
-    viewportWidth: document.documentElement.clientWidth,
-  }));
-  expect(dimensions.documentWidth).toBeLessThanOrEqual(dimensions.viewportWidth);
-
-  const downloadPromise = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download PNG' }).click();
-  const download = await downloadPromise;
-  expect(download.suggestedFilename()).toBe('palette.png');
-  expect(await download.failure()).toBeNull();
-  const downloadPath = await download.path();
-  expect(downloadPath).not.toBeNull();
-  expect((await stat(downloadPath!)).size).toBeGreaterThan(0);
 });
 
 test('baseline security headers are present', async ({ request }) => {
