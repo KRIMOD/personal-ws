@@ -1,27 +1,24 @@
-/* eslint-disable react/no-unescaped-entities */
 import me from '@/app/avatar.jpg';
+import { site } from '@/lib/site';
 
-export const name = 'Mamar Abdelkrim TEMAM';
+export const name = site.name;
 export const avatar = me;
 export const about = () => {
   return (
     <>
-      Hey, I'm Mamar (Usually called Krimo). I'm a{' '}
-      <b>Salesforce Technical Consultant at Ornidex </b>
-      where we help companies fastrack their customer processes.
+      Hey, I&apos;m Mamar, usually called Krimo. I&apos;m a{' '}
+      <b>Salesforce technical consultant</b> with a background in full-stack web
+      development.
     </>
   );
 };
 export const bio = () => {
   return (
     <>
-      I'm Mamar Abdelkrim TEMAM, a salesforce technical consultant from Algeria
-      with experience in full-stack web development. I specialize in the
-      Salesforce echosystem, Apex, TypeScript/Javascript, Next.js. I have a
-      strong command of these technologies, allowing me to create efficient
-      applications, build scalable solutions leveraging Salesforce for
-      customized solutions. With my expertise in Salesforce, I bring valuable
-      insights into Salesforce development, integration, and customization.
+      I&apos;m based in Algeria and work across the Salesforce ecosystem, Apex,
+      TypeScript, JavaScript, and Next.js. I enjoy building practical,
+      maintainable applications and integrations that make complex business
+      processes easier to use.
     </>
   );
 };

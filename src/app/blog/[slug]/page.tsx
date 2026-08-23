@@ -1,85 +1,108 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Mdx } from '@/components/mdx';
-import { allBlogs } from 'contentlayer/generated';
-// import { getTweets } from '@/lib/twitter';
-import Balancer from 'react-wrap-balancer';
-import ViewCounter from '../view-counter';
+import {
+  formatPublishedDate,
+  getPost,
+  posts,
+} from '@/content/posts';
+import { site } from '@/lib/site';
+
+type BlogPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return allBlogs.map((post) => ({
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({
   params,
-}): Promise<Metadata | undefined> {
-  const post = allBlogs.find((post) => post.slug === params.slug);
+}: BlogPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPost(slug);
+
   if (!post) {
-    return;
+    return {};
   }
 
-  const {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-    slug,
-  } = post;
-  const ogImage = image
-    ? `https://leerob.io${image}`
-    : `https://leerob.io/api/og?title=${title}`;
+  const canonical = `/blog/${post.slug}`;
+  const image = post.image ?? '/opengraph-image';
 
   return {
-    title,
-    description,
+    title: post.title,
+    description: post.summary,
+    alternates: { canonical },
     openGraph: {
-      title,
-      description,
+      title: post.title,
+      description: post.summary,
       type: 'article',
-      publishedTime,
-      url: `https://leerob.io/blog/${slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
+      publishedTime: post.publishedAt,
+      url: canonical,
+      locale: 'fr_FR',
+      images: [{ url: image }],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
-      images: [ogImage],
+      title: post.title,
+      description: post.summary,
+      images: [image],
     },
   };
 }
 
-export default async function Blog({ params }) {
-  const post = allBlogs.find((post) => post.slug === params.slug);
+export default async function Blog({ params }: BlogPageProps) {
+  const { slug } = await params;
+  const post = getPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  // const tweets = await getTweets(post.tweetIds);
+  const PostContent = post.component;
+  const canonicalUrl = new URL(`/blog/${post.slug}`, site.url).toString();
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    inLanguage: post.language,
+    url: canonicalUrl,
+    image: new URL(post.image ?? '/opengraph-image', site.url).toString(),
+    author: {
+      '@type': 'Person',
+      name: site.name,
+      url: site.url.toString(),
+    },
+  };
 
   return (
-    <section>
-      <script type="application/ld+json">
-        {JSON.stringify(post.structuredData)}
-      </script>
-      <h1 className="font-bold text-3xl font-serif max-w-[650px]">
-        <Balancer>{post.title}</Balancer>
-      </h1>
-      <div className="grid grid-cols-[auto_1fr_auto] items-center mt-4 mb-8 font-mono text-sm max-w-[650px]">
-        <div className="bg-neutral-100 dark:bg-neutral-800 rounded-md px-2 py-1 tracking-tighter">
-          {post.publishedAt}
-        </div>
-        <div className="h-[0.2em] bg-neutral-50 dark:bg-neutral-800 mx-2" />
-        <ViewCounter slug={post.slug} trackView />
+    <article lang={post.language}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
+        }}
+      />
+      <header className="mb-8 max-w-[650px]">
+        <h1 className="text-balance font-serif text-3xl font-bold">
+          {post.title}
+        </h1>
+        <time
+          className="mt-4 inline-block rounded-md bg-neutral-100 px-2 py-1 font-mono text-sm tracking-tighter dark:bg-neutral-800"
+          dateTime={post.publishedAt}
+        >
+          {formatPublishedDate(post.publishedAt)}
+        </time>
+      </header>
+      <div className="prose prose-neutral dark:prose-invert max-w-[650px]">
+        <PostContent />
       </div>
-      <Mdx code={post.body.code} />
-    </section>
+    </article>
   );
 }

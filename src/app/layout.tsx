@@ -1,9 +1,9 @@
 import '@/styles/globals.css';
 import clsx from 'clsx';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
-import Sidebar from '../components/sidebar';
-// import { Analytics } from '@vercel/analytics/react';
+import Sidebar from '@/components/sidebar';
+import { site } from '@/lib/site';
 
 const kaisei = localFont({
   src: '../../public/fonts/kaisei-tokumin-latin-700-normal.woff2',
@@ -13,24 +13,30 @@ const kaisei = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: site.url,
   title: {
-    default: 'Mamar Abdelkrim TEMAM',
-    template: '%s | Mamar Abdelkrim TEMAM',
+    default: site.name,
+    template: `%s | ${site.shortName}`,
   },
-  description: 'Developer, writer, and creator.',
+  description: site.description,
+  applicationName: site.shortName,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'Mamar Abdelkrim TEMAM',
-    description: 'Developer, writer, and creator.',
-    url: 'https://leerob.io',
-    siteName: 'Mamar Abdelkrim TEMAM',
+    title: site.name,
+    description: site.description,
+    url: '/',
+    siteName: site.shortName,
     images: [
       {
-        url: 'https://leerob.io/og.jpg',
-        width: 1920,
-        height: 1080,
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: site.name,
       },
     ],
-    locale: 'en-US',
+    locale: 'en_US',
     type: 'website',
   },
   robots: {
@@ -45,16 +51,19 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Lee Robinson',
     card: 'summary_large_image',
+    title: site.name,
+    description: site.description,
+    images: ['/opengraph-image'],
   },
-  icons: {
-    shortcut: '/favicon.ico',
-  },
-  verification: {
-    google: 'eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw',
-    yandex: '14d2e73487fa6c71',
-  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#111010' },
+  ],
 };
 
 export default function RootLayout({
@@ -70,11 +79,19 @@ export default function RootLayout({
         kaisei.variable
       )}
     >
-      <body className="antialiased max-w-4xl mb-40 flex flex-col md:flex-row mx-4 mt-8 md:mt-20 lg:mt-32 lg:mx-auto">
+      <body className="relative mx-4 mt-8 mb-40 flex max-w-4xl flex-col antialiased md:mt-20 md:flex-row lg:mx-auto lg:mt-32">
+        <a
+          href="#main-content"
+          className="fixed top-3 left-3 z-50 -translate-y-20 rounded-md bg-black px-4 py-2 text-sm text-white transition-transform focus:translate-y-0 dark:bg-white dark:text-black"
+        >
+          Skip to content
+        </a>
         <Sidebar />
-        <main className="flex-auto min-w-0 mt-6 md:mt-0 flex flex-col px-2 md:px-0">
+        <main
+          id="main-content"
+          className="mt-6 flex min-w-0 flex-auto flex-col px-2 md:mt-0 md:px-0"
+        >
           {children}
-          {/* <Analytics /> */}
         </main>
       </body>
     </html>

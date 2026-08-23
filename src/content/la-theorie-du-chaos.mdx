@@ -1,9 +1,3 @@
----
-title: 'La théorie du chaos'
-publishedAt: '2018-08-18'
-summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.bla bla blaLorem ipsum dolor sit amet, consectetur adipiscing elit.bla bla blaLorem ipsum dolor sit amet, consectetur adipiscing elit.'
----
-
 « La plus grande faiblesse de la pensée contemporaine me paraît résider dans la surestimation extraordinaire du connu par rapport à ce qui reste à connaître. » André Breton 1937
 
 Grace à la mécanique newtonienne, le futur devenait prévisible, il suffisait de traduire le mouvement en équations différentielles et de les résoudre (ce qui n’était pas tout le temps évident). Plutôt, le futur devenait calculable.
@@ -16,15 +10,17 @@ Hiver 1961, Edward Lorenz, météorologue américain au MIT, à bord de son Roya
 
 En 1972, Lorenz dans une conférence donnée à l’American Association for the Advancement of Science énonce : « Prédictibilité : le battement d’ailes d’un papillon au Brésil provoque-t-il une tornade au Texas ? » à ne pas interpréter de façon causale comme l’explique Lorenz, ce ne serait pas le battement d’aile du papillon qui déclencherait la tempête. C’est principalement de là que vient l’incroyable popularité de la théorie. Et si dans sa métaphore il introduit un papillon, ce n’est pas pour rien, quelques années auparavant, 1963, en modélisant une version simplifiée du couplage de l’atmosphère terrestre avec l’océan décrit par 3 équations différentielles interdépendantes, il découvre une étrange figure semblant se répéter qu’importe le point de départ. Le résultat qui fut nommé l’attracteur de Lorenz représente l’ensemble des trajectoires à long termes d’un système dynamique. Pour presque toutes les conditions initiales, les trajectoires ne se coupent jamais, pourtant évoluent arbitrairement s’enroulant autour d’une orbite puis d’une autre, formant des figures indiscutablement reconnaissables, oui, un papillon.
 
-<Image
-  alt={`2019 Year in Review`}
-  src={`/static/images/la-theorie-du-chaos/image1.png`}
-  width={1200}
-  height={630}
-  priority
-/>
-
-Pic1. (Paramètres des équations ρ = 28, σ = 10, β = 8/3).
+<figure>
+  <Image
+    alt="Visualisation de l'attracteur de Lorenz en forme de papillon"
+    src="/static/images/la-theorie-du-chaos/image1.png"
+    width={1200}
+    height={630}
+  />
+  <figcaption>
+    Attracteur de Lorenz (paramètres ρ = 28, σ = 10, β = 8/3).
+  </figcaption>
+</figure>
 
 Expliqué simplement, un système dynamique sera dit chaotique si une portion significative de son espace des phases présente simultanément un phénomène sensible aux conditions initiales et une forte récurrence.
 

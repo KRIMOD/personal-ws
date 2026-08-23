@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mamar Temam's Website
 
-## Getting Started
+A personal website and MDX blog built with Next.js, React, TypeScript, and Tailwind CSS. It includes a small browser-based palette card generator at `/mounir`.
 
-First, run the development server:
+## Requirements
+
+- Node.js 24
+- npm 11
+
+The supported versions are declared in `.nvmrc` and `package.json`.
+
+## Development
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`NEXT_PUBLIC_SITE_URL` controls canonical URLs, sitemap entries, and social metadata. Set it to the final production origin without a trailing path.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Content
 
-## Learn More
+Blog articles live in `src/content/*.mdx`. Their typed metadata and component imports are registered in `src/content/posts.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+When adding an article:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create the MDX file in `src/content`.
+2. Import it and add its metadata to `src/content/posts.ts`.
+3. Add any local images under `public/static/images`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Quality Checks
 
-## Deploy on Vercel
+```bash
+npm run lint
+npm run typecheck
+npm run build
+npm run test:e2e
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Playwright tests run against the production server and require its Chromium browser:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npx playwright install chromium
+```
+
+## Deployment
+
+The site is configured for Vercel or any platform capable of running `next build` and `next start`. Use Node.js 24 and install from `package-lock.json` with `npm ci`.
+
+## Attribution And License
+
+The original visual starting point was Lee Robinson's public Next.js blog template and has since been adapted. This repository does not currently declare a software license; choose one only after confirming the reuse terms that applied to the original version.

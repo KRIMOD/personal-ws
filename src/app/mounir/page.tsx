@@ -1,174 +1,250 @@
 'use client';
-import React, { useRef, useState } from 'react';
+
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import html2canvas from 'html2canvas';
-import { Merriweather } from 'next/font/google';
 
-const merriweather = Merriweather({ weight: '400', subsets: ['latin'] });
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const initialColors = ['#173f5f', '#20639b', '#3caea3', '#f6d55c'];
 
-export default function Mounir() {
-  // const colors = ['#FF5733', '#33FF57', '#5733FF', '#33FFF5'];
-  const [colors, setColors] = useState(['', '', '', '']);
-  const [backgroundImage, setBackgroundImage] = useState(null);
-
+export default function MounirPage() {
+  const [colors, setColors] = useState(initialColors);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [palette, setPalette] = useState('Palette 3');
   const [volume, setVolume] = useState('Volume 5');
+  const [error, setError] = useState<string | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
 
-  const handleInputChange = (index, event) => {
-    const newColors = [...colors];
-    newColors[index] = event.target.value;
-    setColors(newColors);
-  };
+  useEffect(() => {
+    return () => {
+      if (backgroundImage) {
+        URL.revokeObjectURL(backgroundImage);
+      }
+    };
+  }, [backgroundImage]);
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setBackgroundImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+  function handleColorChange(index: number, value: string) {
+    setColors((current) =>
+      current.map((color, colorIndex) =>
+        colorIndex === index ? value : color
+      )
+    );
+  }
+
+  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    setError(null);
+
+    if (!file) {
+      setBackgroundImage(null);
+      return;
     }
-  };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // For this example, we simply prevent default and let the colors be set.
-    // In a real-world app, you might want to validate the hex colors, etc.
-  };
+    if (!file.type.startsWith('image/')) {
+      setError('Choose a valid image file.');
+      event.target.value = '';
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      setError('The background image must be smaller than 5 MB.');
+      event.target.value = '';
+      return;
+    }
+
+    setBackgroundImage(URL.createObjectURL(file));
+  }
+
+  async function downloadImage() {
+    if (!previewRef.current || isDownloading) {
+      return;
+    }
+
+    setError(null);
+    setIsDownloading(true);
+
+    try {
+      await document.fonts.ready;
+      const canvas = await html2canvas(previewRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+      });
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((result) => {
+          if (result) {
+            resolve(result);
+          } else {
+            reject(new Error('The image could not be generated.'));
+          }
+        }, 'image/png');
+      });
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = 'palette.png';
+      link.href = downloadUrl;
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 60_000);
+    } catch {
+      setError('The palette could not be downloaded. Please try again.');
+    } finally {
+      setIsDownloading(false);
+    }
+  }
 
   return (
-    <div className={merriweather.className}>
-      {/* Form for colors */}
-      <form
-        onSubmit={handleSubmit}
-        className="mb-4 flex space-x-4 w-full flex-col space-y-4 items-center"
-      >
-        <div className="w-full flex justify-center space-x-4">
-          {colors.map((color, index) => (
-            <div key={index} className="mb-2">
-              <label>
-                Color {index + 1}:
+    <section aria-labelledby="palette-title">
+      <header className="mb-8 max-w-xl">
+        <h1 id="palette-title" className="font-serif text-3xl font-bold">
+          Palette card studio
+        </h1>
+        <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+          Choose four colors, add an optional background, and export the card as
+          a PNG.
+        </p>
+      </header>
+
+      <div className="grid max-w-[500px] gap-6">
+        <fieldset>
+          <legend className="mb-3 text-sm font-medium">Palette colors</legend>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {colors.map((color, index) => (
+              <label
+                key={index}
+                htmlFor={`color-${index}`}
+                className="flex items-center justify-between gap-2 rounded-lg border border-neutral-200 p-2 text-sm dark:border-neutral-700"
+              >
+                <span>Color {index + 1}</span>
                 <input
+                  id={`color-${index}`}
                   type="color"
                   value={color}
-                  onChange={(e) => handleInputChange(index, e)}
-                  className="ml-2"
+                  onChange={(event) =>
+                    handleColorChange(index, event.target.value)
+                  }
+                  className="h-9 w-9 cursor-pointer rounded border-0 bg-transparent p-0"
                 />
               </label>
-            </div>
-          ))}
-        </div>
-        <div>
-          <label
-            htmlFor="palette"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+            ))}
+          </div>
+        </fieldset>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label htmlFor="palette" className="grid gap-2 text-sm font-medium">
             Palette
+            <input
+              id="palette"
+              type="text"
+              value={palette}
+              maxLength={40}
+              onChange={(event) => setPalette(event.target.value)}
+              className="rounded-lg border border-neutral-300 bg-white p-2.5 text-neutral-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
+            />
           </label>
-          <input
-            type="text"
-            value={palette}
-            onChange={(e) => setPalette(e.target.value)}
-            required
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="volume"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+          <label htmlFor="volume" className="grid gap-2 text-sm font-medium">
             Volume
+            <input
+              id="volume"
+              type="text"
+              value={volume}
+              maxLength={40}
+              onChange={(event) => setVolume(event.target.value)}
+              className="rounded-lg border border-neutral-300 bg-white p-2.5 text-neutral-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
+            />
           </label>
-          <input
-            type="text"
-            value={volume}
-            onChange={(e) => setVolume(e.target.value)}
-            required
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
         </div>
-        <div>
-          <label
-            htmlFor="backgroundImage"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Background Image
-          </label>
+
+        <label
+          htmlFor="background-image"
+          className="grid gap-2 text-sm font-medium"
+        >
+          Background image
           <input
+            id="background-image"
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            aria-describedby="background-help palette-error"
+            className="block w-full rounded-lg border border-neutral-300 bg-white p-2.5 text-sm text-neutral-900 file:mr-3 file:rounded-md file:border-0 file:bg-neutral-100 file:px-3 file:py-2 file:text-sm file:font-medium dark:border-neutral-600 dark:bg-neutral-800 dark:text-white dark:file:bg-neutral-700"
           />
-        </div>
-      </form>
-      <ColorDisplay
-        colors={colors}
-        palette={palette}
-        volume={volume}
-        backgroundImage={backgroundImage}
-      />
-    </div>
-  );
-}
+          <span
+            id="background-help"
+            className="font-normal text-neutral-500 dark:text-neutral-400"
+          >
+            PNG, JPEG, WebP, or another browser-supported image up to 5 MB.
+          </span>
+        </label>
+      </div>
 
-function ColorDisplay({ colors, palette, volume, backgroundImage }) {
-  const ref = useRef(null);
+      {error ? (
+        <p
+          id="palette-error"
+          role="alert"
+          className="mt-4 text-sm text-red-700 dark:text-red-300"
+        >
+          {error}
+        </p>
+      ) : null}
 
-  const downloadImage = () => {
-    html2canvas(ref.current).then((canvas) => {
-      const link = document.createElement('a');
-      link.download = 'colors.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  };
-
-  const bgImageUrl = '/input-2.png'; // Replace with your image URL
-
-  return (
-    <>
       <div
-        className="p-4 border rounded-sm mx-auto mt-10 w-[500px]  text-xs bg-white"
+        ref={previewRef}
+        className="mx-auto mt-10 w-full max-w-[500px] rounded-sm border p-4 text-xs"
         style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
+          backgroundColor: '#ffffff',
+          borderColor: '#d4d4d4',
+          color: '#171717',
+          ...(backgroundImage
+            ? {
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+              }
+            : {}),
         }}
-        ref={ref}
       >
-        <div className="py-40">
-          <div className="flex justify-between pb-2 text-black pt-4 uppercase">
-            <span>{palette}</span>
-            <span>{volume}</span>
+        <div className="py-28 sm:py-40">
+          <div
+            className="mb-2 flex justify-between gap-4 rounded-sm px-2 py-2 font-medium uppercase"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', color: '#000000' }}
+          >
+            <span>{palette || 'Untitled palette'}</span>
+            <span>{volume || 'No volume'}</span>
           </div>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col gap-2">
             {colors.map((color, index) => (
-              <div key={index} className="relative">
-                <div
-                  className="h-20 bg-gray-200"
-                  style={{ backgroundColor: color }}
+              <div
+                key={index}
+                className="relative h-20"
+                style={{ backgroundColor: color }}
+              >
+                <span
+                  className="absolute right-2 bottom-2 rounded-sm px-1.5 py-0.5 font-medium"
+                  style={{ backgroundColor: '#ffffff', color: '#171717' }}
                 >
-                  {/* Color label positioned at bottom right inside the shape */}
-                  <span className="absolute bottom-2 right-1 text-white font-light">
-                    {color}
-                  </span>
-                </div>
+                  {color.toUpperCase()}
+                </span>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-center w-full pt-6 text-sm text-gray-300">ZUMROD</p>
+        <p
+          className="w-full pt-3 text-center text-sm font-medium"
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', color: '#404040' }}
+        >
+          ZUMROD
+        </p>
       </div>
 
-      <div className="w-full flex justify-center pt-4">
+      <div className="flex w-full justify-center pt-4">
         <button
+          type="button"
           onClick={downloadImage}
-          className="px-4 py-2 bg-gray-300 text-gray-800 text-xs rounded "
+          disabled={isDownloading}
+          className="rounded bg-neutral-800 px-4 py-2 text-sm font-medium text-white outline-none hover:bg-neutral-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60 dark:bg-neutral-200 dark:text-neutral-900 dark:hover:bg-white"
         >
-          Download
+          {isDownloading ? 'Preparing download…' : 'Download PNG'}
         </button>
       </div>
-    </>
+    </section>
   );
 }
