@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
   formatPublishedDate,
@@ -90,12 +91,12 @@ export default async function Blog({ params }: BlogPageProps) {
         }}
       />
       <header className="mb-12">
-        <p className="page-kicker">Essay</p>
+        <div className="section-label"><span>Essay</span><Link href="/blog">All writing</Link></div>
         <h1 className="page-title">
           {post.title}
         </h1>
         <time
-          className="ui-label mt-5 inline-block tabular-nums"
+          className="meta mt-4 inline-block"
           dateTime={post.publishedAt}
         >
           {formatPublishedDate(post.publishedAt)}

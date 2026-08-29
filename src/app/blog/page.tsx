@@ -39,27 +39,24 @@ export default async function BlogPage() {
   return (
     <section>
       <header className="mb-14">
-        <p className="page-kicker">Writing</p>
-        <h1 className="page-title">Notes and essays.</h1>
-        <p className="mt-6 max-w-xl text-[1.03rem] text-[var(--secondary)]">
+        <div className="section-label"><span>Archive</span><span>{sortedPosts.length} posts</span></div>
+        <h1 className="page-title">Writing</h1>
+        <p className="mt-5 max-w-xl text-[1rem] text-[var(--secondary)]">
           Occasional writing about technology, ideas, and Algerian culture.
         </p>
       </header>
-      <div className="border-b border-[var(--line)] pb-2.5">
-        <h2 className="section-heading">All posts</h2>
-      </div>
-      <ul>
+      <ul className="border-t border-[var(--line)]">
         {sortedPosts.map((post) => (
           <li key={post.slug} lang={post.language} className="border-b border-[var(--line)]">
             <Link
-              className="group grid gap-2 py-5 no-underline sm:grid-cols-[1fr_auto] sm:gap-8"
+              className="group grid gap-1 py-3 no-underline sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8"
               href={`/blog/${post.slug}`}
             >
               <div>
-                <span className="text-[1.08rem] text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">{post.title}</span>
-                <p className="mt-1 text-[0.94rem] leading-relaxed text-[var(--secondary)]">{post.summary}</p>
+                <span className="text-[1rem] text-[var(--foreground)]">{post.title}</span>
+                <p className="mt-0.5 text-[0.9rem] leading-relaxed text-[var(--muted)]">{post.summary}</p>
               </div>
-              <time className="ui-label tabular-nums sm:pt-1" dateTime={post.publishedAt}>{formatPublishedDate(post.publishedAt)}</time>
+              <time className="meta" dateTime={post.publishedAt}>{formatPublishedDate(post.publishedAt)}</time>
             </Link>
           </li>
         ))}

@@ -30,20 +30,20 @@ export default function AboutPage() {
   return (
     <div>
       <header>
-        <p className="page-kicker">About</p>
+        <div className="section-label"><span>Profile</span><span>About</span></div>
         <h1 className="page-title">A builder with a practical streak.</h1>
-        <p className="mt-7 max-w-xl text-[1.08rem] leading-[1.72] text-[var(--secondary)]">
+        <p className="mt-6 max-w-xl text-[1.03rem] leading-[1.65] text-[var(--secondary)]">
           I&apos;m Mamar Abdelkrim Temam, usually called Krimo. I&apos;m a Salesforce
           technical consultant from Algeria with a background in full-stack web
           development.
         </p>
       </header>
 
-      <section className="mt-16" aria-labelledby="approach-title">
-        <div className="border-b border-[var(--line)] pb-2.5">
+      <section className="mt-14" aria-labelledby="approach-title">
+        <div className="border-b border-[var(--line)] pb-2">
           <h2 id="approach-title" className="section-heading">How I work</h2>
         </div>
-        <div className="prose mt-7">
+        <div className="prose mt-5">
           <p>
             I enjoy understanding the real problem before reaching for a tool.
             Most good software starts with careful listening, a clear model of
@@ -62,27 +62,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mt-16" aria-labelledby="capabilities-title">
-        <div className="border-b border-[var(--line)] pb-2.5">
+      <section className="mt-14" aria-labelledby="capabilities-title">
+        <div className="border-b border-[var(--line)] pb-2">
           <h2 id="capabilities-title" className="section-heading">What I do</h2>
         </div>
         <dl>
           {capabilities.map(([term, description]) => (
-            <div key={term} className="grid gap-1 border-b border-[var(--line)] py-5 sm:grid-cols-[140px_1fr] sm:gap-8">
-              <dt className="font-sans text-[0.8rem] font-semibold text-[var(--foreground)]">{term}</dt>
+            <div key={term} className="grid gap-1 border-b border-[var(--line)] py-4 sm:grid-cols-[140px_1fr] sm:gap-8">
+              <dt className="text-[0.95rem] font-semibold text-[var(--foreground)]">{term}</dt>
               <dd className="text-[var(--secondary)]">{description}</dd>
             </div>
           ))}
         </dl>
       </section>
 
-      <section className="mt-16 border-l-2 border-[var(--accent)] pl-5">
-        <p className="page-kicker">Contact</p>
+      <section className="mt-14">
+        <h2 className="section-heading mb-3">Contact</h2>
         <p className="max-w-xl text-[var(--secondary)]">
           The best place to reach me professionally is LinkedIn. You can also
           follow my code and experiments on GitHub.
         </p>
-        <div className="mt-4 flex gap-5 font-sans text-[0.8rem] font-semibold">
+        <div className="mt-4 flex gap-5 text-[0.95rem]">
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
           <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         </div>

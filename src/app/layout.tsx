@@ -1,18 +1,12 @@
 import '@/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Lora, Manrope } from 'next/font/google';
+import { Source_Serif_4 } from 'next/font/google';
 import Navigation from '@/components/sidebar';
 import { site } from '@/lib/site';
 
-const lora = Lora({
+const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   variable: '--font-reading',
-  display: 'swap',
-});
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  variable: '--font-ui',
   display: 'swap',
 });
 
@@ -65,8 +59,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f7f3ea' },
-    { media: '(prefers-color-scheme: dark)', color: '#181715' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#1b1a19' },
   ],
 };
 
@@ -76,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lora.variable} ${manrope.variable}`}>
+    <html lang="en" className={sourceSerif.variable}>
       <body className="relative min-h-screen antialiased">
         <a
           href="#main-content"
@@ -87,10 +81,6 @@ export default function RootLayout({
         <div className="site-shell">
           <Navigation />
           <main id="main-content">{children}</main>
-          <footer className="site-footer">
-            <span>© {new Date().getFullYear()} {site.shortName}</span>
-            <span>Algiers, Algeria</span>
-          </footer>
         </div>
       </body>
     </html>
