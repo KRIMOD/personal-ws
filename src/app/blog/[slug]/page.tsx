@@ -89,18 +89,19 @@ export default async function Blog({ params }: BlogPageProps) {
           __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
         }}
       />
-      <header className="mb-8 max-w-[650px]">
-        <h1 className="text-balance font-serif text-3xl font-bold">
+      <header className="mb-12">
+        <p className="page-kicker">Essay</p>
+        <h1 className="page-title">
           {post.title}
         </h1>
         <time
-          className="mt-4 inline-block rounded-md bg-neutral-100 px-2 py-1 font-mono text-sm tracking-tighter dark:bg-neutral-800"
+          className="ui-label mt-5 inline-block tabular-nums"
           dateTime={post.publishedAt}
         >
           {formatPublishedDate(post.publishedAt)}
         </time>
       </header>
-      <div className="prose prose-neutral dark:prose-invert max-w-[650px]">
+      <div className="prose">
         <PostContent />
       </div>
     </article>
