@@ -4,11 +4,11 @@ import { site } from '@/lib/site';
 
 const topics = [
   'Salesforce architecture',
-  'Apex and integrations',
-  'Web development',
-  'Developer experience',
-  'Personal software',
-  'Algerian culture',
+  'Service Cloud Voice',
+  'Agentforce and AI',
+  'Data 360 and MuleSoft',
+  'CRM integrations',
+  'Customer service systems',
 ];
 
 export default function HomePage() {
@@ -21,18 +21,18 @@ export default function HomePage() {
       <section aria-labelledby="bio-heading">
         <div className="section-label">
           <span id="bio-heading">Bio</span>
-          <span>Algiers, Algeria</span>
+          <span>Paris, France</span>
         </div>
         <div className="space-y-6 text-[1.03rem] leading-[1.62] text-[var(--foreground)]">
           <p>
-            I&apos;m a Salesforce technical consultant and web developer from
-            Algeria. I work with Apex, TypeScript, JavaScript, and Next.js to
-            build useful applications and integrations.
+            I&apos;m a tech lead, developer, and CRM consultant at Ornidex in Paris.
+            I&apos;m nine-time Salesforce certified and work across architecture,
+            development, integrations, voice, data, and AI.
           </p>
           <p>
             My goal is to make complicated systems easier to understand and
-            simpler to use. I care about practical software, thoughtful
-            interfaces, and work that holds up over time.
+            simpler to use. I care about practical software, reliable customer
+            operations, and work that holds up over time.
           </p>
         </div>
         <div className="mt-5 flex gap-5 text-[0.95rem] text-[var(--secondary)]">

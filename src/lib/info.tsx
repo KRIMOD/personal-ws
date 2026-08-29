@@ -7,18 +7,16 @@ export const about = () => {
   return (
     <>
       Hey, I&apos;m Mamar, usually called Krimo. I&apos;m a{' '}
-      <b>Salesforce technical consultant</b> with a background in full-stack web
-      development.
+      <b>tech lead, developer, and CRM consultant at Ornidex</b> in Paris.
     </>
   );
 };
 export const bio = () => {
   return (
     <>
-      I&apos;m based in Algeria and work across the Salesforce ecosystem, Apex,
-      TypeScript, JavaScript, and Next.js. I enjoy building practical,
-      maintainable applications and integrations that make complex business
-      processes easier to use.
+      I&apos;m nine-time Salesforce certified and work across CRM architecture,
+      development, integrations, voice, data, and AI. I enjoy building
+      maintainable systems that make complex business processes easier to use.
     </>
   );
 };

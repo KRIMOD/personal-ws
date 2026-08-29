@@ -5,7 +5,7 @@ export const site = {
   shortName: 'Mamar Temam',
   nickname: 'Krimo',
   description:
-    'Salesforce technical consultant and full-stack web developer from Algeria.',
+    'Tech lead, CRM consultant, and nine-time Salesforce certified developer at Ornidex in Paris.',
   url: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? fallbackUrl),
   github: 'https://github.com/krimod',
   linkedin: 'https://www.linkedin.com/in/mamar-abdelkrim-temam/',
