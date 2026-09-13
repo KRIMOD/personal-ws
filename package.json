@@ -24,23 +24,23 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.1",
+    "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "4.3.3",
     "@tailwindcss/typography": "0.5.20",
     "@types/mdx": "2.0.14",
-    "@types/node": "24.13.3",
+    "@types/node": "26.5.1",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
-    "eslint": "9.39.5",
-    "eslint-config-next": "16.3.2",
-    "postcss": "8.5.26",
+    "eslint": "10.10.0",
+    "eslint-config-next": "16.3.4",
+    "postcss": "8.5.28",
     "rehype-autolink-headings": "7.1.0",
     "rehype-pretty-code": "0.14.5",
     "rehype-slug": "6.0.0",
     "remark-gfm": "4.0.1",
     "shiki": "4.4.3",
     "tailwindcss": "4.3.3",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "prettier": {
     "singleQuote": true,
